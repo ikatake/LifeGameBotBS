@@ -1,7 +1,9 @@
 import sys
+import os
 import requests
 from datetime import datetime, timezone
 import _key_secret_
+import common
 
 PDS_URL = "https://bsky.social"
 
@@ -22,6 +24,45 @@ file_name = sys.argv[1]
 with open(file_name, encoding='utf-8') as f:
     post_text = f.read()
 
+# GIF添付の処理（loop.txtが指定されている場合）
+embed = None
+if len(sys.argv) > 2:
+    loop_file = sys.argv[2]
+    gene, step, loop_from = common.readLoopFile(loop_file)
+    gif_path = f"/home/ikatake/www/wetsteam/lifegamebot/gifs/{gene:08d}.gif"
+    
+    if os.path.exists(gif_path):
+        with open(gif_path, 'rb') as f:
+            gif_data = f.read()
+        
+        # GIFをアップロード
+        upload_resp = requests.post(
+            f"{PDS_URL}/xrpc/com.atproto.repo.uploadBlob",
+            headers={
+                "Authorization": f"Bearer {session['accessJwt']}",
+                "Content-Type": "image/gif",
+            },
+            data=gif_data,
+            timeout=30,
+        )
+        upload_resp.raise_for_status()
+        blob = upload_resp.json()['blob']
+        
+        # embedに画像を追加
+        embed = {
+            "$type": "app.bsky.embed.images",
+            "images": [{"alt": "Life Game Animation", "image": blob}]
+        }
+
+# 投稿レコードを構築
+record = {
+    "$type": "app.bsky.feed.post",
+    "text": post_text,
+    "createdAt": datetime.now(timezone.utc).isoformat(),
+}
+if embed:
+    record["embed"] = embed
+
 # Blueskyに投稿
 post_resp = requests.post(
     f"{PDS_URL}/xrpc/com.atproto.repo.createRecord",
@@ -32,11 +73,7 @@ post_resp = requests.post(
     json={
         "repo": session["did"],
         "collection": "app.bsky.feed.post",
-        "record": {
-            "$type": "app.bsky.feed.post",
-            "text": post_text,
-            "createdAt": datetime.now(timezone.utc).isoformat(),
-        },
+        "record": record,
     },
     timeout=10,
 )
