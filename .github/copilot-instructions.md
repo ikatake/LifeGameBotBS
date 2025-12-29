@@ -1,8 +1,8 @@
-# LifeGameBot Twitter Bot - AI Agent Instructions
+# LifeGameBot BlueSky Bot - AI Agent Instructions
 
 ## プロジェクト概要
 
-Conway's Game of Lifeをシミュレートし、15分ごとにTwitterに自動投稿するボット。状態がループまたは固定化すると新しい世代(generation)を初期化してGIFアニメーションを生成。
+Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動投稿するボット。状態がループまたは固定化すると新しい世代(generation)を初期化してGIFアニメーションを生成。
 
 ## アーキテクチャとデータフロー
 
