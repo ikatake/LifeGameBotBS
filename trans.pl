@@ -5,7 +5,7 @@ use Encode;
 
 my $state_file = $ARGV[0];
 my $conf_file = $ARGV[1];
-my $tweet = '';
+my $post = '';
 my $width = 10;
 my $height = 10;
 my $linecnt = 0;
@@ -21,7 +21,7 @@ while( my $line = readline($fh)){
   if($linecnt < 10) {
     $line =~ s/0/$conf->{chr0}/g;
     $line =~ s/1/$conf->{chr1}/g;
-    $tweet .= $line;
+    $post .= $line;
     $linecnt++;
   }
   else{	
@@ -36,6 +36,6 @@ while( my $line = readline($fh)){
 }
 close $fh;
 
-$tweet .= "g:$gene s:$step";
-print $tweet;
+$post .= "g:$gene s:$step";
+print $post;
 

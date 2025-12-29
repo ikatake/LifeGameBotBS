@@ -25,7 +25,7 @@ if(next_states == states):
     sys.exit() #frozenであれば、(2)は調べなくて良いので終わる。
 
 #(2)過去の状態と比較してループしているかをチェックする。
-#比較対象は現在(30分前にtweetした)状態を基準とする。
+#比較対象は現在(30分前にpostした)状態を基準とする。
 gene_folder = common.state_log_dir+ '{:08}/'.format(gene)#読み取るフォルダ
 past_step:int = step - 1
 #最近のファイルから読み取っていく。

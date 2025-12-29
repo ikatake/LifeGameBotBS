@@ -5,8 +5,8 @@ stateLogs/
 20160726/
 *.txt
 conf.pl
-tweet.new
-tweet.old
+post.new
+post.old
 state.svg
 icon.png
 _key_secret_.py

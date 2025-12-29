@@ -14,14 +14,14 @@ Conway's Game of Lifeをシミュレートし、15分ごとにTwitterに自動�
    - **ループ/固定化時** (`loop.txt` に内容あり):
      - `makeGifMaker.py`: GIF生成スクリプトを出力 → `makeGif.sh`
      - `sh makeGif.sh`: ImageMagickでPNGからGIF作成
-     - `announce.py`: 終了アナウンス文生成 → `tweet.txt`
+     - `announce.py`: 終了アナウンス文生成 → `post.txt`
      - `makeLogDirNextGene.py`: 次世代ログディレクトリ作成
    - **通常進行時** (`loop.txt` が空):
      - `makeSVG.pl`: SVG画像生成 → `state.svg`
      - `makePNG.pl`: PNG画像生成 → `./pngs/{gene:08}/{step:08}.png`
      - `saveLog.pl`: 状態ファイルとSVGをログディレクトリに保存
-     - `trans.pl`: ツイート本文生成 (絵文字変換) → `tweet.txt`
-4. **投稿**: `tweet.py` が `tweet.txt` を読み込み、Twitter API経由で投稿
+     - `trans.pl`: 投稿本文生成 (絵文字変換) → `post.txt`
+4. **投稿**: `post.py` が `post.txt` を読み込み、API経由で投稿
 5. **状態更新**: `state.new` を `state.txt` にリネーム
 
 ## ファイル形式
@@ -53,7 +53,7 @@ loop_from	30  # ループ開始step (step==loop_from → frozen)
 
 ### 言語混在パターン
 - **Perl**: 状態シミュレーション (`lg.pl`)、画像生成 (`makeSVG.pl`, `makePNG.pl`)、ログ保存 (`saveLog.pl`)、テキスト変換 (`trans.pl`)
-- **Python**: ループ検出 (`isLoop.py`)、GIF生成準備 (`makeGifMaker.py`)、Twitter投稿 (`tweet.py`, `announce.py`)、ディレクトリ作成 (`makeLogDirNextGene.py`)
+- **Python**: ループ検出 (`isLoop.py`)、GIF生成準備 (`makeGifMaker.py`)、投稿処理 (`post.py`, `announce.py`)、ディレクトリ作成 (`makeLogDirNextGene.py`)
 - **共通モジュール**: [common.py](common.py) - `readStateFile()`, `readLoopFile()` 関数と `state_log_dir` 定数
 
 ### フォーマット規約
@@ -69,7 +69,7 @@ sh test.sh  # lgtw.shとほぼ同じ、投稿なしでローカルテスト
 ```
 
 ### 認証情報
-- [_key_secret_.py](_key_secret_.py): Twitter API認証情報 (`ck`, `cs`, `at`, `ats`)
+- [_key_secret_.py](_key_secret_.py): SNS API認証情報 (`ck`, `cs`, `at`, `ats`)
   - **注意**: このファイルは機密情報、コミット厳禁
 
 ### デバッグ
@@ -80,6 +80,6 @@ sh test.sh  # lgtw.shとほぼ同じ、投稿なしでローカルテスト
 ## 外部依存
 
 - **Perl**: File::Copy, File::Path, Compress::Zlib (PNG生成用)
-- **Python**: tweepy (Twitter API), sys, os (標準ライブラリ)
+- **Python**: tweepy (SNS API), sys, os (標準ライブラリ)
 - **ImageMagick**: `convert` コマンド (PNG→GIF変換)
 - **Cron**: 15分間隔でlgtw.sh実行を想定
