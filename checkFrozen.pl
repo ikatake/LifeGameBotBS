@@ -11,7 +11,7 @@ my ($finif) = $ARGV[3];
 my ($fstat) = './status.txt';
 my @field1;
 my @field2;
-my $step;
+my $gene;
 my $run;
 my $numline = 0;
 my $width = 10;
@@ -38,8 +38,8 @@ while(my $line = readline($ofh)) {
 	}
 	else{
 		@column = split(/\t/, $line);
-		if( $column[0] eq 'step'){
-			$step = int($column[1]);
+		if( $column[0] eq 'gene'){
+			$gene = int($column[1]);
 		}
 		elsif($column[0] eq 'run'){
 			$run = int($column[1]);

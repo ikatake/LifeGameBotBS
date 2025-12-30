@@ -10,7 +10,7 @@ my $width = 10;
 my $height = 10;
 my $linecnt = 0;
 my $run = 0;
-my $step = 0;
+my $gene = 0;
 
 my $conf = do $conf_file or die "$!$@";
 
@@ -26,8 +26,8 @@ while( my $line = readline($fh)){
   }
   else{	
     my @column = split(/\t/, $line);
-    if( $column[0] eq 'step') {
-      $step = int($column[1]);
+    if( $column[0] eq 'gene') {
+      $gene = int($column[1]);
     }
     elsif( $column[0] eq 'run') {
       $run = int($column[1]);
@@ -36,6 +36,6 @@ while( my $line = readline($fh)){
 }
 close $fh;
 
-$post .= "r:$run s:$step";
+$post .= "r:$run g:$gene";
 print $post;
 

@@ -11,7 +11,7 @@ my $width = 10;
 my $height = 10;
 my $readline = 0;
 my $run = 0;
-my $step = 0;
+my $gene = 0;
 my $isInit = 0;
 my @column;
 my @field;
@@ -42,9 +42,9 @@ while( my $line = readline($fh)){
 	}
 	else{	
 		@column = split(/\t/, $line);
-		if( $column[0] eq 'step')
+		if( $column[0] eq 'gene')
 		{
-			$step = int($column[1]);
+			$gene = int($column[1]);
 		}
 		elsif( $column[0] eq 'run')
 		{
@@ -85,7 +85,7 @@ sub show {
 		print("\n");
 	}
 	print( "run\t$run\n" );
-	print( "step\t$step\n" );
+	print( "gene\t$gene\n" );
 }
 sub refresh {
 	for( my $i = 0; $i < $width*$height; $i++)
@@ -93,7 +93,7 @@ sub refresh {
 		$field[$i] = int( rand(2) );
 	}
 	$run++;
-	$step = 0;
+	$gene = 0;
 }
 sub update {
 	for( my $y = 0; $y < $height; $y++)
@@ -128,7 +128,7 @@ sub update {
 			}
 		}
 	}
-	$step++;
+	$gene++;
 }
 
 sub show2 {
@@ -141,5 +141,5 @@ sub show2 {
 		print("\n");
 	}
 	print( "run\t$run\n" );
-	print( "step\t$step\n" );
+	print( "gene\t$gene\n" );
 }

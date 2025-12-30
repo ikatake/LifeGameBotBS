@@ -34,7 +34,7 @@ die('invalied imageheight or Y-block') if ($imageheight % $yblock != 0);
 
 # parse input statefile
 my(@statelines) = ();
-my($staterun, $statestep) = (0, 0);
+my($staterun, $stategene) = (0, 0);
 open(my $statefile, '<:utf8', encode('utf-8', $statefilename));
 while (my $stateline = <$statefile>) {
 	chomp($stateline);
@@ -48,15 +48,15 @@ while (my $stateline = <$statefile>) {
 		# run
 		($staterun) = $stateline =~ m/(\d+)$/;
 	}
-	elsif ($stateline =~ m/^step/i) {
-		# step
-		($statestep) = $stateline =~ m/(\d+)$/;
+	elsif ($stateline =~ m/^gene/i) {
+		# gene
+		($stategene) = $stateline =~ m/(\d+)$/;
 	}
 }
 close($statefile);
 die('invalied state lines') if scalar(@statelines) != $yblock;
 die('undefined run') if !defined($staterun) || $staterun+0 == 0;
-die('undefined step') if !defined($statestep);
+die('undefined gene') if !defined($stategene);
 
 # PNG generate
 my($pngbuf); #png data buffer
@@ -81,7 +81,7 @@ $pngbuf .= PNGCHUNK('IEND', '');
 # File writedown.
 mkpath(encode('utf-8', sprintf("$pngdir/%08d", $staterun)))
 	unless -e encode('utf-8', sprintf("$pngdir/%08d", $staterun));
-open(my $pngout, '>:raw', encode('utf-8', sprintf("$pngdir/%08d/%08d.png", $staterun, $statestep)))
+open(my $pngout, '>:raw', encode('utf-8', sprintf("$pngdir/%08d/%08d.png", $staterun, $stategene)))
  or die("$!");
 binmode($pngout);
 print($pngout $pngbuf);

@@ -7,7 +7,7 @@ use Net::Twitter::Lite::WithAPIv1_1;
 use Encode;
 
 my $run = 0;
-my $step = 0;
+my $gene = 0;
 my $name = "";
 my ($text) = @ARGV;
 die 'no text'  unless defined $text;
@@ -31,9 +31,9 @@ open( my $fh, "<", $text)
 	or die "Cannot open $text: $!";
 while( my $line = readline($fh)){
 	my @column = split(/\t/, $line);
-	if( $column[0] eq 'step')
+	if( $column[0] eq 'gene')
 	{
-		$step = int($column[1]);
+		$gene = int($column[1]);
 	}
 	elsif( $column[0] eq 'run')
 	{
@@ -43,7 +43,7 @@ while( my $line = readline($fh)){
 close $fh;
 
 my $profile = {};
-$name = "LifeGameBot($run 回目$step 世代目)";
+$name = "LifeGameBot($run 回目$gene 世代目)";
 $name = decode_utf8($name);
 $profile->{name} = $name;
 $tw->update_profile($profile);

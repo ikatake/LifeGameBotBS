@@ -28,7 +28,7 @@ with open(file_name, encoding='utf-8') as f:
 embed = None
 if len(sys.argv) > 2:
     loop_file = sys.argv[2]
-    run, step, loop_from = common.readLoopFile(loop_file)
+    run, gene, loop_from = common.readLoopFile(loop_file)
     gif_path = f"/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{run:08d}.gif"
     
     if os.path.exists(gif_path):

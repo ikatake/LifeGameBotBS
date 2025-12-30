@@ -8,7 +8,7 @@ my ($fnew) = $ARGV[0];
 my ($finim) = $ARGV[1];
 my ($finif) = $ARGV[2];
 my ($fstat) = './status.txt';
-my $step;
+my $gene;
 my $run;
 my $isInit = '';
 my @column;
@@ -50,7 +50,7 @@ close $ifh;
 
 print '';
 if($isInit ne '') { #初期化するようにstatus.txt、state.newに記載。
-  #state.newからrunとstepを読み取る
+  #state.newからrunとgeneを読み取る
   open($ifh, "<", $fnew)
     or die "Cannot open $fnew: $!";
   while( my $line = readline($ifh) ){
@@ -59,13 +59,13 @@ if($isInit ne '') { #初期化するようにstatus.txt、state.newに記載。
     if( $column[0] eq 'run'){
       $run = int($column[1]);
     }
-    elsif( $column[0] eq 'step' ){
-      $step = int($column[1]);
+    elsif( $column[0] eq 'gene' ){
+      $gene = int($column[1]);
     }
   }
 close $ifh;
 	print "run\t${run}\n";
-	print "step\t${step}\n";
+	print "gene\t${gene}\n";
 	print "init\t${isInit}\t${initter}\n";
 	open (my $outfh, '>>', $fnew)
 		or die qq{Can't open file "$fnew": $!};
