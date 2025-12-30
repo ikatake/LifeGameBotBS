@@ -36,6 +36,6 @@ while( my $line = readline($fh)){
 }
 close $fh;
 
-$post .= "r:$run g:$gene";
+$post .= "run:$run gene:$gene";
 print $post;
 
