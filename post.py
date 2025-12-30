@@ -29,7 +29,7 @@ embed = None
 if len(sys.argv) > 2:
     loop_file = sys.argv[2]
     gene, step, loop_from = common.readLoopFile(loop_file)
-    gif_path = f"/home/ikatake/www/wetsteam/lifegamebot/gifs/{gene:08d}.gif"
+    gif_path = f"/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{gene:08d}.gif"
     
     if os.path.exists(gif_path):
         with open(gif_path, 'rb') as f:

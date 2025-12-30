@@ -31,4 +31,4 @@ def readLoopFile(file_path:str)->tuple:
                 loop_from = int(s.split('\t')[1])
     return gene, step, loop_from
 
-state_log_dir:str = "/home/ikatake/www/wetsteam/lifegamebot/stateLogs/"
+state_log_dir:str = "/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/"

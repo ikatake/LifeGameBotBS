@@ -47,9 +47,9 @@ loop_from	30  # ループ開始step (step==loop_from → frozen)
 
 ### パス構造
 - ローカル: `./stateLogs/{gene:08}/{step:08}.txt|svg`
-- リモート: `/home/ikatake/www/wetsteam/lifegamebot/stateLogs/{gene:08}/{step:08}.txt|svg`
+- リモート: `/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/{gene:08}/{step:08}.txt|svg`
 - PNG: `./pngs/{gene:08}/{step:08}.png` (GIF生成用一時ファイル)
-- GIF: `/home/ikatake/www/wetsteam/lifegamebot/gifs/{gene:08}.gif`
+- GIF: `/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{gene:08}.gif`
 
 ### 言語混在パターン
 - **Perl**: 状態シミュレーション (`lg.pl`)、画像生成 (`makeSVG.pl`, `makePNG.pl`)、ログ保存 (`saveLog.pl`)、テキスト変換 (`trans.pl`)

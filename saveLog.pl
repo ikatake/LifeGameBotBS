@@ -43,7 +43,7 @@ copy($frmsvg, $tosvg)
 	or die "Can't copy $frmsvg to $tosvg:$!";
 
 #copy to ~/www directory
-$dir = sprintf("/home/ikatake/www/wetsteam/lifegamebot/stateLogs/%08d", $gene);
+$dir = sprintf("/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/%08d", $gene);
 $totxt = sprintf("$dir/%08d.txt", $step);
 copy($frmtxt, $totxt)
 	or die "Can't copy $frmtxt to $totxt:$!";

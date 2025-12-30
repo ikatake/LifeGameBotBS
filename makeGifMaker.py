@@ -13,7 +13,7 @@ loop_from:int = 0
 gene, step, loop_from = common.readLoopFile(file_name)
 
 in_arg_pngs:str = './pngs/' + '{:08}/*.png'.format(gene)
-out_arg_gif:str = '/home/ikatake/www/wetsteam/lifegamebot/gifs/'
+out_arg_gif:str = '/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/'
 out_arg_gif += '{:08}.gif'.format(gene)
 #gene_folder = common.state_log_dir+ '{:08}/'.format(gene)
 print('#!/bin/sh')
