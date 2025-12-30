@@ -18,7 +18,7 @@ Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動�
      - `makeLogDirNextRun.py`: 次回ログディレクトリ作成
    - **通常進行時** (`loop.txt` が空):
      - `makeSVG.pl`: SVG画像生成 → `state.svg`
-     - `makePNG.pl`: PNG画像生成 → `./pngs/{run:08}/{step:08}.png`
+     - `makePNG.pl`: PNG画像生成 → `./pngs/{run:08}/{gene:08}.png`
      - `saveLog.pl`: 状態ファイルとSVGをログディレクトリに保存
      - `trans.pl`: 投稿本文生成 (絵文字変換) → `post.txt`
 4. **投稿**: `post.py` が `post.txt` を読み込み、API経由で投稿
@@ -32,23 +32,23 @@ Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動�
 1010101010
 ...
 run	123      # run番号 (タブ区切り)
-step	45       # step番号
+gene	45       # gene番号 (世代番号)
 ```
 - 最終行が `init` の場合、次回実行時に新runを初期化
 
 ### loop.txt (ループ情報)
 ```
 run	123
-step	45
-loop_from	30  # ループ開始step (step==loop_from → frozen)
+gene	45
+loop_from	30  # ループ開始gene (gene==loop_from → frozen)
 ```
 
 ## 重要な規約
 
 ### パス構造
-- ローカル: `./stateLogs/{run:08}/{step:08}.txt|svg`
-- リモート: `/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/{run:08}/{step:08}.txt|svg`
-- PNG: `./pngs/{run:08}/{step:08}.png` (GIF生成用一時ファイル)
+- ローカル: `./stateLogs/{run:08}/{gene:08}.txt|svg`
+- リモート: `/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/{run:08}/{gene:08}.txt|svg`
+- PNG: `./pngs/{run:08}/{gene:08}.png` (GIF生成用一時ファイル)
 - GIF: `/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{run:08}.gif`
 
 ### 言語混在パターン
