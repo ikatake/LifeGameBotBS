@@ -17,7 +17,7 @@ else #loop.txtが空であれば、状態をつぶやく
   perl ./makeSVG.pl ./state.new > ./state.svg
   perl ./makePNG.pl ./state.new
   perl ./saveLog.pl ./state.new ./state.svg
-  perl ./trans.pl ./state.new trans.conf.pl > ./post.txt
+  perl ./trans.pl ./state.new ./trans.conf.pl > ./post.txt
   python3 ./post.py ./post.txt
 fi
 mv  ./state.new ./state.txt
