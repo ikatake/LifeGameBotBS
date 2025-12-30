@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動投稿するボット。状態がループまたは固定化すると新しい世代(generation)を初期化してGIFアニメーションを生成。
+Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動投稿するボット。状態がループまたは固定化すると新しいrun（実行回）を初期化してGIFアニメーションを生成。
 
 ## アーキテクチャとデータフロー
 
@@ -15,10 +15,10 @@ Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動�
      - `makeGifMaker.py`: GIF生成スクリプトを出力 → `makeGif.sh`
      - `sh makeGif.sh`: ImageMagickでPNGからGIF作成
      - `announce.py`: 終了アナウンス文生成 → `post.txt`
-     - `makeLogDirNextGene.py`: 次世代ログディレクトリ作成
+     - `makeLogDirNextRun.py`: 次回ログディレクトリ作成
    - **通常進行時** (`loop.txt` が空):
      - `makeSVG.pl`: SVG画像生成 → `state.svg`
-     - `makePNG.pl`: PNG画像生成 → `./pngs/{gene:08}/{step:08}.png`
+     - `makePNG.pl`: PNG画像生成 → `./pngs/{run:08}/{step:08}.png`
      - `saveLog.pl`: 状態ファイルとSVGをログディレクトリに保存
      - `trans.pl`: 投稿本文生成 (絵文字変換) → `post.txt`
 4. **投稿**: `post.py` が `post.txt` を読み込み、API経由で投稿
@@ -31,14 +31,14 @@ Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動�
 0101010101    # 10行の10桁の0/1 (10x10グリッド)
 1010101010
 ...
-gene	123      # generation番号 (タブ区切り)
+run	123      # run番号 (タブ区切り)
 step	45       # step番号
 ```
-- 最終行が `init` の場合、次回実行時に新世代を初期化
+- 最終行が `init` の場合、次回実行時に新runを初期化
 
 ### loop.txt (ループ情報)
 ```
-gene	123
+run	123
 step	45
 loop_from	30  # ループ開始step (step==loop_from → frozen)
 ```
@@ -46,14 +46,14 @@ loop_from	30  # ループ開始step (step==loop_from → frozen)
 ## 重要な規約
 
 ### パス構造
-- ローカル: `./stateLogs/{gene:08}/{step:08}.txt|svg`
-- リモート: `/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/{gene:08}/{step:08}.txt|svg`
-- PNG: `./pngs/{gene:08}/{step:08}.png` (GIF生成用一時ファイル)
-- GIF: `/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{gene:08}.gif`
+- ローカル: `./stateLogs/{run:08}/{step:08}.txt|svg`
+- リモート: `/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/{run:08}/{step:08}.txt|svg`
+- PNG: `./pngs/{run:08}/{step:08}.png` (GIF生成用一時ファイル)
+- GIF: `/home/ikatake/www/wetsteam/LifeGameBotBS/gifs/{run:08}.gif`
 
 ### 言語混在パターン
 - **Perl**: 状態シミュレーション (`lg.pl`)、画像生成 (`makeSVG.pl`, `makePNG.pl`)、ログ保存 (`saveLog.pl`)、テキスト変換 (`trans.pl`)
-- **Python**: ループ検出 (`isLoop.py`)、GIF生成準備 (`makeGifMaker.py`)、投稿処理 (`post.py`, `announce.py`)、ディレクトリ作成 (`makeLogDirNextGene.py`)
+- **Python**: ループ検出 (`isLoop.py`)、GIF生成準備 (`makeGifMaker.py`)、投稿処理 (`post.py`, `announce.py`)、ディレクトリ作成 (`makeLogDirNextRun.py`)
 - **共通モジュール**: [common.py](common.py) - `readStateFile()`, `readLoopFile()` 関数と `state_log_dir` 定数
 
 ### フォーマット規約

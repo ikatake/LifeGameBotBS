@@ -12,7 +12,7 @@ my $height = 10;
 my $readline = 0;
 my @column;
 my @field;
-my $gene = 0;
+my $run = 0;
 my $step = 0;
 my $pxcell = 10;
 
@@ -35,9 +35,9 @@ while( my $line = readline($fh)){
                 {
                         $step = int($column[1]);
                 }
-                elsif( $column[0] eq 'gene')
+                elsif( $column[0] eq 'run')
                 {
-                        $gene = int($column[1]);
+                        $run = int($column[1]);
                 }
         }
 }
@@ -50,7 +50,7 @@ print << "EOS";
         xmlns:xlink="http://www.w3.org/1999/xlink"
         height="@{[$height*$pxcell]}px" width="@{[$width*$pxcell]}px">
 EOS
-print "<title>lifegamebot gene$gene step$step</title>";
+print "<title>lifegamebot run$run step$step</title>";
 
 for(my $y = 0; $y < $height; $y++)
 {

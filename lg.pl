@@ -10,7 +10,7 @@ $text = decode('utf-8', $text);
 my $width = 10;
 my $height = 10;
 my $readline = 0;
-my $gene = 0;
+my $run = 0;
 my $step = 0;
 my $isInit = 0;
 my @column;
@@ -46,9 +46,9 @@ while( my $line = readline($fh)){
 		{
 			$step = int($column[1]);
 		}
-		elsif( $column[0] eq 'gene')
+		elsif( $column[0] eq 'run')
 		{
-			$gene = int($column[1]);
+			$run = int($column[1]);
 		}
 	}
 }
@@ -84,7 +84,7 @@ sub show {
 		}
 		print("\n");
 	}
-	print( "gene\t$gene\n" );
+	print( "run\t$run\n" );
 	print( "step\t$step\n" );
 }
 sub refresh {
@@ -92,7 +92,7 @@ sub refresh {
 	{
 		$field[$i] = int( rand(2) );
 	}
-	$gene++;
+	$run++;
 	$step = 0;
 }
 sub update {
@@ -140,6 +140,6 @@ sub show2 {
 		}
 		print("\n");
 	}
-	print( "gene\t$gene\n" );
+	print( "run\t$run\n" );
 	print( "step\t$step\n" );
 }

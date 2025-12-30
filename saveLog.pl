@@ -12,7 +12,7 @@ my $width = 10;
 my $height = 10;
 my $readline = 0;
 my $step = 0;
-my $gene = 0;
+my $run = 0;
 my @column;
 my @field;
 
@@ -24,14 +24,14 @@ while( my $line = readline($fh)){
 	{
 		$step = int($column[1]);
 	}
-	elsif( $column[0] eq 'gene')
+	elsif( $column[0] eq 'run')
 	{
-		$gene = int($column[1]);
+		$run = int($column[1]);
 	}
 }
 close $fh;
 
-my $dir = sprintf("./stateLogs/%08d", $gene);
+my $dir = sprintf("./stateLogs/%08d", $run);
 my $totxt = sprintf("$dir/%08d.txt", $step);
 copy($frmtxt, $totxt)
 	or die "Can't copy $frmtxt to $totxt:$!";
@@ -43,7 +43,7 @@ copy($frmsvg, $tosvg)
 	or die "Can't copy $frmsvg to $tosvg:$!";
 
 #copy to ~/www directory
-$dir = sprintf("/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/%08d", $gene);
+$dir = sprintf("/home/ikatake/www/wetsteam/LifeGameBotBS/stateLogs/%08d", $run);
 $totxt = sprintf("$dir/%08d.txt", $step);
 copy($frmtxt, $totxt)
 	or die "Can't copy $frmtxt to $totxt:$!";

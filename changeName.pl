@@ -6,7 +6,7 @@ use lib "${FindBin::Bin}/extlib/lib/perl5", "${FindBin::Bin}/extlib/lib/perl5/i3
 use Net::Twitter::Lite::WithAPIv1_1;
 use Encode;
 
-my $gene = 0;
+my $run = 0;
 my $step = 0;
 my $name = "";
 my ($text) = @ARGV;
@@ -35,15 +35,15 @@ while( my $line = readline($fh)){
 	{
 		$step = int($column[1]);
 	}
-	elsif( $column[0] eq 'gene')
+	elsif( $column[0] eq 'run')
 	{
-		$gene = int($column[1]);
+		$run = int($column[1]);
 	}
 }
 close $fh;
 
 my $profile = {};
-$name = "LifeGameBot($gene 代目$step 歩目)";
+$name = "LifeGameBot($run 回目$step 世代目)";
 $name = decode_utf8($name);
 $profile->{name} = $name;
 $tw->update_profile($profile);

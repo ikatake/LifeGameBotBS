@@ -5,20 +5,20 @@ import common
 #遷移前後の状態のファイル名をコマンドライン引数から読み取る。
 file_name:str = sys.argv[1]
 next_file_name:str = sys.argv[2]
-#遷移後の状態・generation・stepを読み取る
-next_states, gene, next_step = common.readStateFile(next_file_name)
-if(next_step == 0): #遷移後がステップ1つまり初期化直後の場合は比較対象がないので、
+#遮移後の状態・run・stepを読み取る
+next_states, run, next_step = common.readStateFile(next_file_name)
+if(next_step == 0): #遮移後がステップ1つまり初期化直後の場合は比較対象がないので、
     print("", end='') #ループしていない無を出力する。
     sys.exit() #そして終わる。
 
-#遷移前後の状態・generation・stepを読み取る
-states, gene, step = common.readStateFile(file_name)
+#遮移前後の状態・run・stepを読み取る
+states, run, step = common.readStateFile(file_name)
 
 #(1)完全に固まっている状態かを判定する。
 #ここで、完全に固まっている状態=>今の状態と次の状態が等しいとする。
-#完全に固まっている状態は一目瞭然なので、次の状態を見せずに次geneに移す。
+#完全に固まっている状態は一目了然なので、次の状態を見せずに次runに移す。
 if(next_states == states):
-    print( 'gene\t' + str(gene))       #その数字を出力
+    print( 'run\t' + str(run))       #その数字を出力
     print( 'step\t' + str(step))       #その数字を出力
     print( 'loop_from\t' + str(step))  #その数字を出力
     #ここで、step = loop_fromとすることで、frozenであることがわかる。
@@ -26,16 +26,16 @@ if(next_states == states):
 
 #(2)過去の状態と比較してループしているかをチェックする。
 #比較対象は現在(30分前にpostした)状態を基準とする。
-gene_folder = common.state_log_dir+ '{:08}/'.format(gene)#読み取るフォルダ
+run_folder = common.state_log_dir+ '{:08}/'.format(run)#読み取るフォルダ
 past_step:int = step - 1
 #最近のファイルから読み取っていく。
 while(past_step >= 0):
-    past_file_path:str = gene_folder + '{:08}.txt'.format(past_step)
-    #昔のファイルの状態・generation・stepを読み取る
+    past_file_path:str = run_folder + '{:08}.txt'.format(past_step)
+    #昔のファイルの状態・run・stepを読み取る
     past_states, g, s = common.readStateFile(past_file_path)
     #状態が同じか確認する
     if(states == past_states):#状態が同じであれば、
-        print( 'gene\t' + str(gene))            #その数字を出力
+        print( 'run\t' + str(run))            #その数字を出力
         print( 'step\t' + str(step))            #その数字を出力
         print( 'loop_from\t' + str(past_step))  #その数字を出力
         sys.exit() #そのstepで終わり。

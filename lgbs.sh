@@ -9,7 +9,7 @@ if [ -s ./loop.txt ]; then #loop.txtに内容があれば(初期化する)、状
   python3 ./makeGifMaker.py ./loop.txt > ./makeGif.sh
   sh ./makeGif.sh
   python3 ./announce.py ./loop.txt > ./post.txt
-  python3 ./makeLogDirNextGene.py ./loop.txt
+  python3 ./makeLogDirNextRun.py ./loop.txt
   echo "init" >> ./state.new
   python3 ./post.py ./post.txt ./loop.txt
 else #loop.txtが空であれば、状態をつぶやく
