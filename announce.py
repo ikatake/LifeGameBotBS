@@ -13,4 +13,3 @@ if(step == loop_from): #stepとloop_fromが等しい→frozen
     print ('Space is frozen at step:{}.'.format(step))
 else:
     print ('Loop between step:{} and step:{}.'.format(loop_from, step))
-print ('Gif: http://www.wetsteam.org/lifegamebot/gifs/{:08}.gif'.format(gene))
