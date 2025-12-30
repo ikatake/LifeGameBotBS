@@ -6,7 +6,7 @@ Conway's Game of Lifeをシミュレートし、15分ごとにBlueSkyに自動�
 
 ## アーキテクチャとデータフロー
 
-### メインワークフロー ([lgtw.sh](lgtw.sh) - cron経由で15分ごと実行)
+### メインワークフロー ([lgbs.sh](lgbs.sh) - cron経由で15分ごと実行)
 
 1. **状態更新**: `lg.pl` が `state.txt` を読み込み、Game of Lifeルールで次状態を計算 → `state.new`
 2. **ループ検出**: `isLoop.py` が前後状態を比較し、ループ/固定化判定 → `loop.txt`
@@ -65,7 +65,7 @@ loop_from	30  # ループ開始step (step==loop_from → frozen)
 
 ### テスト実行
 ```bash
-sh test.sh  # lgtw.shとほぼ同じ、投稿なしでローカルテスト
+sh test.sh  # lgbs.shとほぼ同じ、投稿なしでローカルテスト
 ```
 
 ### 認証情報
@@ -82,4 +82,4 @@ sh test.sh  # lgtw.shとほぼ同じ、投稿なしでローカルテスト
 - **Perl**: File::Copy, File::Path, Compress::Zlib (PNG生成用)
 - **Python**: tweepy (SNS API), sys, os (標準ライブラリ)
 - **ImageMagick**: `convert` コマンド (PNG→GIF変換)
-- **Cron**: 15分間隔でlgtw.sh実行を想定
+- **Cron**: 15分間隔でlgbs.sh実行を想定
