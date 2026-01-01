@@ -6,6 +6,7 @@ import _key_secret_
 import common
 
 PDS_URL = "https://bsky.social"
+BASE_URL = "https://wetsteam.org/"  # GIF公開用のベースURL（要確認・変更）
 
 # Blueskyセッション作成
 session_resp = requests.post(
@@ -35,7 +36,7 @@ if len(sys.argv) > 2:
         with open(gif_path, 'rb') as f:
             gif_data = f.read()
         
-        # GIFをアップロード
+        # サムネイル用にGIFをアップロード
         upload_resp = requests.post(
             f"{PDS_URL}/xrpc/com.atproto.repo.uploadBlob",
             headers={
@@ -48,10 +49,16 @@ if len(sys.argv) > 2:
         upload_resp.raise_for_status()
         blob = upload_resp.json()['blob']
         
-        # embedに画像を追加
+        # 外部リンクカードとしてGIFアニメーションを添付
+        gif_url = f"{BASE_URL}/LifeGameBotBS/gifs/{run:08d}.gif"
         embed = {
-            "$type": "app.bsky.embed.images",
-            "images": [{"alt": "Life Game Animation", "image": blob}]
+            "$type": "app.bsky.embed.external",
+            "external": {
+                "uri": gif_url,
+                "title": f"Life Game Run {run:08d} Animation",
+                "description": f"Conway's Game of Life - Run {run:08d} ({gene} generations, loop from {loop_from})",
+                "thumb": blob
+            }
         }
 
 # 投稿レコードを構築
